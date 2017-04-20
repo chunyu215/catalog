@@ -1,0 +1,54 @@
+topic:
+  image: 172.16.54.136:5000/test/topic:v0.0.1
+  privileged: true
+  labels:
+    io.certus.iosa.service.name: topic
+    io.rancher.container.hostname_override: container_name
+
+qms:
+  image: 172.16.54.136:5000/test/jboss60.ui:v0.0.1
+  privileged: true
+  cpuset: ${qms_cpu}
+  mem_limit: ${qms_mem}000000
+  labels:
+    io.certus.iosa.service.name: qms
+    io.rancher.container.hostname_override: container_name
+  environment:
+  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+
+qcs:
+  image: 172.16.54.136:5000/test/jboss60.backend:v0.0.1
+  privileged: true
+  cpuset: ${qcs_cpu}
+  mem_limit: ${qcs_mem}000000
+  labels:
+    io.certus.iosa.service.name: qcs
+    io.rancher.container.hostname_override: container_name
+  environment:
+  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+
+webui:
+  image: 172.16.54.136:5000/test/jboss60.ui:v0.0.1
+  privileged: true
+  cpuset: ${webui_cpu}
+  mem_limit: ${webui_mem}000000
+  labels:
+    io.certus.iosa.service.name: qcs
+    io.rancher.container.hostname_override: container_name
+    io.certus.hcs.agent.service.name: webui
+  links:
+  - qms
+  environment:
+  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  - QMS_URL=qms:3000
+iosa-gui-lb:
+    image: rancher/lb-service-haproxy:v0.6.2
+    ports:
+    - 3000:3000/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+ 
+ 
+ 
+ 

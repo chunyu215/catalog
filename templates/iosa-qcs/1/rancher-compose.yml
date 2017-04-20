@@ -1,0 +1,120 @@
+.catalog:
+  name: "IOSA"
+  version: "v0.0.2"
+  description: "FLEX-STREAM IOSA All"
+  questions:
+    - variable: "webui_scale"
+      description: "The number of web ui in rancher ."
+      label: "Add Web Ui Host Number"
+      required: true
+      default: 2
+      type: "int"
+    - variable: "qms_scale"
+      description: "The number of qms scape,default 3."
+      label: "Qms Number"
+      required: true
+      default: 3
+      type: "int"
+    - variable: "qcs_scale"
+      description: "The number of qcs node, default 3."
+      label: "Qcs Number"
+      required: true
+      default: 3
+      type: "int"
+    - variable: "topic_create_scale"
+      description: "The number of create topic node."
+      label: "Create Topic Number"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "Jboss_jvm_Xms"
+      description: "jvm Xms, default 1024m."
+      label: "Jboss Jvm Xms(mb)"
+      required: true
+      default: 1024
+      type: "int"
+    - variable: "Jboss_jvm_Xmx"
+      description: "jvm Xmx, default 1024m."
+      label: "Jboss Jvm Xmx(mb)"
+      required: true
+      default: 1024
+      type: "int"
+    - variable: "Jboss_jvm_XX_MaxPermSize"
+      description: "jvm Xmx, default 512m."
+      label: "Jboss Jvm Xmx(mb)"
+      required: true
+      default: 521
+      type: "int"
+    - variable: "webui_cpu"
+      description: "WebUi  CPUs in which to allow execution (0-3, 0,1)"
+      label: "WebUi Compute CPUs"
+      type: "string"
+    - variable: "qcs_cpu"
+      description: "jboss  CPUs in which to allow execution (0-3, 0,1)"
+      label: "Qcs Compute CPUs"
+      type: "string"
+    - variable: "qms_cpu"
+      description: "Qms  CPUs in which to allow execution (0-3, 0,1)"
+      label: "jboss Compute CPUs"
+      type: "string"
+    - variable: "webui_mem"
+      description: "WebUi Compute Memory Limit"
+      label: "WebUi Compute Memory Limit (MB)"
+      type: "int"
+    - variable: "qcs_mem"
+      description: "Qcs Compute Memory Limit"
+      label: "Qcs Compute Memory Limit (MB)"
+      type: "int"
+    - variable: "qms_mem"
+      description: "Qms Container Memory Limit"
+      label: "Qms Node Memory Limit (MB)"
+      type: "int"
+
+qms:
+  scale: ${qms_scale}
+  
+qcs:
+  scale: ${qcs_scale}
+
+webui:
+  scale: ${webui_scale}
+  
+topic:
+  scale: ${topic_create_scale}
+  
+iosa-gui-lb:
+  scale: 1
+  start_on_create: true
+  lb_config:
+    certs: []
+    port_rules:
+    - hostname: 172.16.54.136
+      path: /iosa
+      priority: 1
+      protocol: http
+      service: webui
+      source_port: 3000
+      target_port: 3000
+    - hostname: 172.16.54.136
+      path: /Qcs
+      priority: 2
+      protocol: http
+      service: qcs
+      source_port: 3000
+      target_port: 3000
+    - hostname: 172.16.54.136
+      path: /Qms
+      priority: 3
+      protocol: http
+      service: qms
+      source_port: 3000
+      target_port: 3000
+  health_check:
+    healthy_threshold: 2
+    response_timeout: 2000
+    port: 42
+    unhealthy_threshold: 3
+    interval: 2000
+
+  
+
