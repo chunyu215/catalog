@@ -83,6 +83,15 @@
 
 mysql:
   scale: ${MySQL_SCALE}
+  health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: ${CONN_PORT}
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 60000
   
   
 

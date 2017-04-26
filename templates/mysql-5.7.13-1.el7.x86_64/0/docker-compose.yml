@@ -6,7 +6,7 @@ mysql:
   mem_limit: ${MySQL_MEM_LIMIT}000000
   
   ports:
-  - ${CONN_PORT}:13306/tcp
+  - ${CONN_PORT}:13306
   
   volumes:
   - ${INIT_DB_SCRIPTS}:/docker-entrypoint-initdb.d
@@ -28,7 +28,7 @@ mysql:
     CONN_PORT: ${CONN_PORT}
     CHARACTER_SET_SERVER: ${CHARACTER_SET_SERVER}
     COLLATION_SERVER: ${COLLATION_SERVER}
-    MYSQL_ARGS: --datadir="${DATA_DIR}" --character-set-server="${CHARACTER_SET_SERVER}" --collation-server="${COLLATION_SERVER}"
+    MYSQL_ARGS: --datadir=${DATA_DIR} --character-set-server=${CHARACTER_SET_SERVER} --collation-server=${COLLATION_SERVER}
 
   command: mysqld ${MYSQL_ARGS}
   entrypoint: /entrypoint.sh
