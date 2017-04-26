@@ -30,7 +30,7 @@ mysql:
     COLLATION_SERVER: ${COLLATION_SERVER}
     MYSQL_ARGS: --datadir="${DATA_DIR}" --character-set-server="${CHARACTER_SET_SERVER}" --collation-server="${COLLATION_SERVER}"
 
-  command: mysqld "${MYSQL_ARGS}"
+  command: mysqld ${MYSQL_ARGS}
   entrypoint: /entrypoint.sh
  
  
