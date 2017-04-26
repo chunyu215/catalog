@@ -26,9 +26,9 @@ mysql:
     DATA_DIR: ${DATA_DIR}
     CONFIG_FILE: ${CONFIG_FILE}
     CONN_PORT: ${CONN_PORT}
-    Character-Set-Server: ${Character-Set-Server}
-    Collation-Server: ${Collation-Server}
-    MYSQL_ARGS: --datadir="${DATA_DIR}" --character-set-server="${Character-Set-Server}" --collation-server="${Collation-Server}"
+    CHARACTER_SET_SERVER: ${CHARACTER_SET_SERVER}
+    COLLATION_SERVER: ${COLLATION_SERVER}
+    MYSQL_ARGS: --datadir="${DATA_DIR}" --character-set-server="${CHARACTER_SET_SERVER}" --collation-server="${COLLATION_SERVER}"
 
   command: mysqld "$${MYSQL_ARGS}"
   entrypoint: /entrypoint.sh
