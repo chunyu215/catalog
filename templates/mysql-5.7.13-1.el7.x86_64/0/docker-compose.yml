@@ -14,7 +14,7 @@ mysql:
   - ${DATA_DIR}:${DATA_DIR}
   
   labels:
-    io.certus.iosa.service.name: qms
+    io.certus.iosa.service.name: mysql
     io.rancher.container.hostname_override: mysql_service_hostname
    
   environment:
@@ -30,7 +30,7 @@ mysql:
     COLLATION_SERVER: ${COLLATION_SERVER}
     MYSQL_ARGS: --datadir="${DATA_DIR}" --character-set-server="${CHARACTER_SET_SERVER}" --collation-server="${COLLATION_SERVER}"
 
-  command: mysqld "$${MYSQL_ARGS}"
+  command: mysqld "${MYSQL_ARGS}"
   entrypoint: /entrypoint.sh
  
  
