@@ -1,0 +1,34 @@
+
+mysql:
+  image: 172.16.54.136:5000/test/mysql:v5.7.18
+  privileged: true
+  cpuset: ${MySQL_CPU}
+  mem_limit: ${MySQL_MEM_LIMIT}000000
+  
+  ports:
+  - ${CONN_PORT}:13306/tcp
+  
+  volumes:
+  - ${INIT_DB_SCRIPTS}:/docker-entrypoint-initdb.d
+  - ${CONFIG_FILE}:/etc/my.cnf
+  - ${DATA_DIR}:${DATA_DIR}
+  
+  labels:
+    io.certus.iosa.service.name: qms
+    io.rancher.container.hostname_override: mysql_service_hostname
+   
+  environment:
+   - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+   - MYSQL_USER:${MYSQL_USER}
+   - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+   - MYSQL_DATABASE:${MYSQL_DATABASE}
+   - MYSQL_ROOT_HOST:${MYSQL_ROOT_HOST}
+   - DATA_DIR:${DATA_DIR}
+   - CONFIG_FILE:${CONFIG_FILE}
+   - CONN_PORT:${CONN_PORT}
+   - MYSQL_ARGS:--datadir=${DATA_DIR} --character-set-server=${Character-Set-Server} --collation-server=${Collation-Server}
+
+  command: mysqld ${MYSQL_ARGS}
+  entrypoint: /entrypoint.sh
+ 
+ 

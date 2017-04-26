@@ -13,6 +13,8 @@ qms:
   labels:
     io.certus.iosa.service.name: qms
     io.rancher.container.hostname_override: container_name
+  links:
+   - topic:topic_create_service
   environment:
   - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
 
@@ -24,6 +26,8 @@ qcs:
   labels:
     io.certus.iosa.service.name: qcs
     io.rancher.container.hostname_override: container_name
+  links:
+  - qms:qms_service
   environment:
   - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
 
@@ -37,10 +41,10 @@ webui:
     io.rancher.container.hostname_override: container_name
     io.certus.hcs.agent.service.name: webui
   links:
-  - qms
+  - qms:qms_service
   environment:
-  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
-  - QMS_URL=qms:3000
+  - JAVA_OPTS:-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  - QMS_URL:qms:3000
 iosa-gui-lb:
     image: rancher/lb-service-haproxy:v0.6.2
     ports:

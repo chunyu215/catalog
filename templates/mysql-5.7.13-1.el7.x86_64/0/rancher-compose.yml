@@ -1,0 +1,88 @@
+.catalog:
+  name: "MySQL"
+  version: "v5.7.18"
+  description: "FLEX-STREAM MySQL"
+  questions:
+    - variable: "MYSQL_ROOT_PASSWORD"
+      description: "MYSQL_ROOT_PASSWORD in rancher ."
+      label: "MYSQL_ROOT_PASSWORD"
+      required: true
+      default: "certusIOSA@2016!"
+      type: "string"
+    - variable: "MYSQL_USER"
+      description: "MYSQL_USER,default iosa_dev."
+      label: "MYSQL_USER"
+      required: true
+      default: "iosa_dev"
+      type: "string"
+    - variable: "MYSQL_PASSWORD"
+      description: "MYSQL_PASSWORD, default 3."
+      label: "MYSQL_PASSWORD"
+      required: true
+      default: "certusIOSA@2016!"
+      type: "string"
+    - variable: "MYSQL_DATABASE"
+      description: "MYSQL_DATABASE. default iosa"
+      label: "MYSQL_DATABASE"
+      required: true
+      default: "iosa"
+      type: "string"
+    - variable: "MYSQL_ROOT_HOST"
+      description: "MYSQL_ROOT_HOST, default %."
+      label: "MYSQL_ROOT_HOST"
+      required: true
+      default: "%"
+      type: "string"
+    - variable: "DATA_DIR"
+      description: "DATA_DIR, default /data/mysql."
+      label: "DATA_DIR"
+      required: true
+      default: "/data/mysql"
+      type: "string"
+    - variable: "CONFIG_FILE"
+      description: "CONFIG_FILE, default /data/my.cnf."
+      label: "CONFIG_FILE"
+      required: true
+      default: "/data/my.cnf"
+      type: "string"
+    - variable: "INIT_DB_SCRIPTS"
+      description: "INIT_DB_SCRIPTS, default /data/docker-entrypoint-initdb.d"
+      label: "INIT_DB_SCRIPTS"
+      default: "/data/docker-entrypoint-initdb.d"
+      type: "string"
+    - variable: "CONN_PORT"
+      description: "CONN_PORT, default 13306"
+      label: "CONN_PORT"
+      default: "13306"
+      type: "string"
+    - variable: "Character-Set-Server"
+      description: "Character, default utf-8"
+      label: "Character-Set-Server"
+      default: "utf8"
+      type: "string"
+    - variable: "Collation-Server"
+      description: "collation-server, default utf8_general_ci"
+      label: "collation-server"
+      default: "utf8_general_ci"
+      type: "string"
+    - variable: "MySQL_SCALE"
+      description: "MySQL_SCALE,default 1"
+      label: "MySQL_MEM_LIMIT(MB)"
+      default: 1
+      type: "int"
+    - variable: "MySQL_MEM_LIMIT"
+      description: "MySQL_MEM_LIMIT,default 2048"
+      label: "MySQL_MEM_LIMIT(MB)"
+      default: 2048
+      type: "int"
+    - variable: "MySQL_CPU"
+      description: "MySQL_CPU CPUs in which to allow execution (0-3, 0,1)"
+      label: "MySQL_CPU"
+      default: "0-3"
+      type: "string"
+
+mysql:
+  scale: ${MySQL_SCALE}
+  
+  
+
