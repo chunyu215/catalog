@@ -1,38 +1,65 @@
 topic:
-  image: 172.16.54.136:5000/test/topic:v0.0.1
+  image: 172.16.54.136:5000/iosa/topic:0.0.1
   privileged: true
   labels:
     io.certus.iosa.service.name: topic
     io.rancher.container.hostname_override: container_name
+  external_links:
+  - ${qcs_zk_link}:zk
 
 qms:
-  image: 172.16.54.136:5000/test/jboss60.ui:v0.0.1
+  image: 172.16.54.136:5000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${qms_cpu}
   mem_limit: ${qms_mem}000000
   labels:
     io.certus.iosa.service.name: qms
     io.rancher.container.hostname_override: container_name
+  volumes:
+    - /opt/iosa_deploy/config:/usr/local/iosa/config
+    - /opt/iosa_deploy/Qms/default/data:/usr/local/iosa/jboss60/server/default/data
+    - /opt/iosa_deploy/Qms/default/lib:/usr/local/iosa/jboss60/server/default/lib
+    - /opt/iosa_deploy/Qms/default/log:/usr/local/iosa/jboss60/server/default/log
+    - /opt/iosa_deploy/Qms/default/deploy/Qms.war:/usr/local/iosa/jboss60/server/default/deploy/Qms.war
+    - /opt/iosa_deploy/Qms/default/deploy/decrypt.war:/usr/local/iosa/jboss60/server/default/deploy/decrypt.war
+  
+  environment:
+    JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+    ZK_SERVICE: ${qms_zk_link}
   links:
    - topic:topic_create_service
-  environment:
-  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  external_links:
+  - ${qms_zk_link}:zk
+  - ${kafka_link}:broker
+  - ${mysql_link}:mysql
 
 qcs:
-  image: 172.16.54.136:5000/test/jboss60.backend:v0.0.1
+  image: 172.16.54.136:5000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${qcs_cpu}
   mem_limit: ${qcs_mem}000000
   labels:
     io.certus.iosa.service.name: qcs
     io.rancher.container.hostname_override: container_name
+  volumes:
+    - /opt/iosa_deploy/config:/usr/local/iosa/config
+    - /opt/iosa_deploy/Qcs/default/data:/usr/local/iosa/jboss60/server/default/data
+    - /opt/iosa_deploy/Qcs/default/lib:/usr/local/iosa/jboss60/server/default/lib
+    - /opt/iosa_deploy/Qcs/default/log:/usr/local/iosa/jboss60/server/default/log
+    - /opt/iosa_deploy/Qcs/default/deploy/Qcs.war:/usr/local/iosa/jboss60/server/default/deploy/Qcs.war
+
+  environment:
+    JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+    ZK_SERVICE: ${qcs_zk_link}
   links:
   - qms:qms_service
-  environment:
-  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  external_links:
+  - ${qcs_zk_link}:zk
+  - ${kafka_link}:broker
+  - ${mysql_link}:mysql
 
 webui:
-  image: 172.16.54.136:5000/test/jboss60.ui:v0.0.1
+  image: 172.16.54.136:5000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${webui_cpu}
   mem_limit: ${webui_mem}000000
@@ -40,11 +67,21 @@ webui:
     io.certus.iosa.service.name: qcs
     io.rancher.container.hostname_override: container_name
     io.certus.hcs.agent.service.name: webui
+  volumes:
+    - /opt/iosa_deploy/config:/usr/local/iosa/config
+    - /opt/iosa_deploy/Gui/default/data:/usr/local/iosa/jboss60/server/default/data
+    - /opt/iosa_deploy/Gui/default/lib:/usr/local/iosa/jboss60/server/default/lib
+    - /opt/iosa_deploy/Gui/default/log:/usr/local/iosa/jboss60/server/default/log
+    - /opt/iosa_deploy/Gui/default/deploy/iosa.war:/usr/local/iosa/jboss60/server/default/deploy/iosa.war
+  environment:
+    JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+    ZK_SERVICE: ${qms_zk_link}
   links:
   - qms:qms_service
-  environment:
-  - JAVA_OPTS:-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
-  - QMS_URL:qms:3000
+  external_links:
+  - ${qcs_zk_link}:zk
+  - ${mysql_link}:mysql
+  
 iosa-gui-lb:
     image: rancher/lb-service-haproxy:v0.6.2
     ports:
@@ -52,6 +89,7 @@ iosa-gui-lb:
     labels:
       io.rancher.container.agent.role: environmentAdmin
       io.rancher.container.create_agent: 'true'
+
  
  
  
