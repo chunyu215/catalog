@@ -30,6 +30,7 @@ qms:
    - topic:topic_create_service
   external_links:
   - ${qms_zk_link}:zk
+  - ${kafka_link}:broker
   - ${mysql_link}:mysql
 
 qcs:
@@ -54,6 +55,7 @@ qcs:
   - qms:qms_service
   external_links:
   - ${qcs_zk_link}:zk
+  - ${kafka_link}:broker
   - ${mysql_link}:mysql
 
 webui:
@@ -77,6 +79,7 @@ webui:
   links:
   - qms:qms_service
   external_links:
+  - ${qcs_zk_link}:zk
   - ${mysql_link}:mysql
   
 iosa-gui-lb:
