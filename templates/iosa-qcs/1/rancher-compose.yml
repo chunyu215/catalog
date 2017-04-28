@@ -49,16 +49,19 @@
       description: "WebUi  CPUs in which to allow execution (0-3, 0,1)"
       label: "WebUi Compute CPUs"
       defaut: "0-3"
+      required: true
       type: "string"
     - variable: "qcs_cpu"
       description: "jboss  CPUs in which to allow execution (0-3, 0,1)"
       label: "Qcs Compute CPUs"
+      required: true
       defaut: "0-3"
       type: "string"
     - variable: "qms_cpu"
       description: "Qms  CPUs in which to allow execution (0-3, 0,1)"
       label: "jboss Compute CPUs"
       defaut: "0-3"
+      required: true
       type: "string"
     - variable: "webui_mem"
       description: "WebUi Compute Memory Limit"
@@ -87,7 +90,7 @@
       description: |
         Choose the Zookeeper service to use. 
         It's really recommended a dedicated zookeeper service just for Kafka.
-      label: "Zookeeper stack/service(Qms)"
+      label: "Kafka stack/service(Qms)"
       default: "kafka/broker"
       required: true
       type: "service"
