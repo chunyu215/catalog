@@ -69,7 +69,7 @@
       description: "Qcs Compute Memory Limit"
       label: "Qcs Compute Memory Limit (MB)"
       type: "int"
-     default: 2048
+      default: 2048
     - variable: "qms_mem"
       description: "Qms Container Memory Limit"
       label: "Qms Node Memory Limit (MB)"
