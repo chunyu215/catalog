@@ -15,6 +15,14 @@ qms:
   labels:
     io.certus.iosa.service.name: qms
     io.rancher.container.hostname_override: container_name
+  volumes:
+    - /opt/iosa_deploy/config:/usr/local/iosa/config
+    - /opt/iosa_deploy/Qms/default/data:/usr/local/iosa/jboss60/server/default/data
+    - /opt/iosa_deploy/Qms/default/lib:/usr/local/iosa/jboss60/server/default/lib
+    - /opt/iosa_deploy/Qms/default/log:/usr/local/iosa/jboss60/server/default/log
+    - /opt/iosa_deploy/Qms/default/deploy/Qms.war:/usr/local/iosa/jboss60/server/default/deploy/Qms.war
+    - /opt/iosa_deploy/Qms/default/deploy/decrypt.war:/usr/local/iosa/jboss60/server/default/deploy/decrypt.war
+  
   environment:
     JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
     ZK_SERVICE: ${qms_zk_link}
@@ -32,6 +40,13 @@ qcs:
   labels:
     io.certus.iosa.service.name: qcs
     io.rancher.container.hostname_override: container_name
+  volumes:
+    - /opt/iosa_deploy/config:/usr/local/iosa/config
+    - /opt/iosa_deploy/Qcs/default/data:/usr/local/iosa/jboss60/server/default/data
+    - /opt/iosa_deploy/Qcs/default/lib:/usr/local/iosa/jboss60/server/default/lib
+    - /opt/iosa_deploy/Qcs/default/log:/usr/local/iosa/jboss60/server/default/log
+    - /opt/iosa_deploy/Qcs/default/deploy/Qcs.war:/usr/local/iosa/jboss60/server/default/deploy/Qcs.war
+
   environment:
     JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
     ZK_SERVICE: ${qcs_zk_link}
@@ -50,6 +65,12 @@ webui:
     io.certus.iosa.service.name: qcs
     io.rancher.container.hostname_override: container_name
     io.certus.hcs.agent.service.name: webui
+  volumes:
+    - /opt/iosa_deploy/config:/usr/local/iosa/config
+    - /opt/iosa_deploy/Gui/default/data:/usr/local/iosa/jboss60/server/default/data
+    - /opt/iosa_deploy/Gui/default/lib:/usr/local/iosa/jboss60/server/default/lib
+    - /opt/iosa_deploy/Gui/default/log:/usr/local/iosa/jboss60/server/default/log
+    - /opt/iosa_deploy/Gui/default/deploy/iosa.war:/usr/local/iosa/jboss60/server/default/deploy/iosa.war
   environment:
     JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
     ZK_SERVICE: ${qms_zk_link}
