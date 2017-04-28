@@ -1,12 +1,14 @@
 topic:
-  image: docker-registry:5000/test/topic:v0.0.2
+  image: docker-registry:5000/iosa/topic:0.0.1
   privileged: true
   labels:
     io.certus.iosa.service.name: topic
     io.rancher.container.hostname_override: container_name
+  external_links:
+  - ${qcs_zk_link}:zk
 
 qms:
-  image: docker-registry:5000/test/jboss60.ui:v0.0.2
+  image: docker-registry:5000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${qms_cpu}
   mem_limit: ${qms_mem}000000
@@ -14,10 +16,16 @@ qms:
     io.certus.iosa.service.name: qms
     io.rancher.container.hostname_override: container_name
   environment:
-  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  ZK_SERVICE: ${qms_zk_link}
+  links:
+   - topic:topic_create_service
+  external_links:
+  - ${qms_zk_link}:zk
+  - ${mysql_link}:mysql
 
 qcs:
-  image: docker-registry:5000/test/jboss60.backend:v0.0.2
+  image: docker-registry:5000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${qcs_cpu}
   mem_limit: ${qcs_mem}000000
@@ -25,10 +33,16 @@ qcs:
     io.certus.iosa.service.name: qcs
     io.rancher.container.hostname_override: container_name
   environment:
-  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  ZK_SERVICE: ${qcs_zk_link}
+  links:
+  - qms:qms_service
+  external_links:
+  - ${qcs_zk_link}:zk
+  - ${mysql_link}:mysql
 
 webui:
-  image: docker-registry:5000/test/jboss60.ui:v0.0.2
+  image: docker-registry:5000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${webui_cpu}
   mem_limit: ${webui_mem}000000
@@ -38,6 +52,11 @@ webui:
     io.certus.hcs.agent.service.name: webui
   environment:
   - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+  links:
+  - qms:qms_service
+  external_links:
+  - ${mysql_link}:mysql
+  
 iosa-gui-lb:
     image: rancher/lb-service-haproxy:v0.6.2
     ports:

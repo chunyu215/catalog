@@ -69,6 +69,30 @@
       description: "Qms Container Memory Limit"
       label: "Qms Node Memory Limit (MB)"
       type: "int"
+    - variable: "qms_zk_link"
+      description: |
+        Choose the Zookeeper service to use. 
+        It's really recommended a dedicated zookeeper service just for Kafka.
+      label: "Zookeeper stack/service(Qms)"
+      default: "kafka-zk/zk"
+      required: true
+      type: "service"
+    - variable: "qcs_zk_link"
+      description: |
+        Choose the Zookeeper service to use. 
+        It's really recommended a dedicated zookeeper service just for Kafka.
+      label: "Zookeeper stack/service(Qcs)"
+      default: "kafka-zk/zk"
+      required: true
+      type: "service"
+    - variable: "mysql_link"
+      description: |
+        Choose the Zookeeper service to use. 
+        It's really recommended a dedicated zookeeper service just for Kafka.
+      label: "MySQL stack/service"
+      default: "mysql/mysql"
+      required: true
+      type: "service"
 
 qms:
   scale: ${qms_scale}
