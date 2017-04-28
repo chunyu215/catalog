@@ -16,8 +16,8 @@ qms:
     io.certus.iosa.service.name: qms
     io.rancher.container.hostname_override: container_name
   environment:
-  JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
-  ZK_SERVICE: ${qms_zk_link}
+    JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+    ZK_SERVICE: ${qms_zk_link}
   links:
    - topic:topic_create_service
   external_links:
@@ -33,8 +33,8 @@ qcs:
     io.certus.iosa.service.name: qcs
     io.rancher.container.hostname_override: container_name
   environment:
-  JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
-  ZK_SERVICE: ${qcs_zk_link}
+    JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+    ZK_SERVICE: ${qcs_zk_link}
   links:
   - qms:qms_service
   external_links:
@@ -51,7 +51,8 @@ webui:
     io.rancher.container.hostname_override: container_name
     io.certus.hcs.agent.service.name: webui
   environment:
-  - JAVA_OPTS=-Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+    JAVA_OPTS: -Xms${Jboss_jvm_Xms}m -Xmx${Jboss_jvm_Xmx}m -XX:MaxPermSize=${Jboss_jvm_XX_MaxPermSize}m
+    ZK_SERVICE: ${qms_zk_link}
   links:
   - qms:qms_service
   external_links:
