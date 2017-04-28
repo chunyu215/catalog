@@ -7,19 +7,19 @@
       description: "The number of web ui in rancher ."
       label: "Add Web Ui Host Number"
       required: true
-      default: 2
+      default: 1
       type: "int"
     - variable: "qms_scale"
       description: "The number of qms scape,default 3."
       label: "Qms Number"
       required: true
-      default: 3
+      default: 1
       type: "int"
     - variable: "qcs_scale"
       description: "The number of qcs node, default 3."
       label: "Qcs Number"
       required: true
-      default: 3
+      default: 1
       type: "int"
     - variable: "topic_create_scale"
       description: "The number of create topic node."
@@ -31,13 +31,13 @@
       description: "jvm Xms, default 1024m."
       label: "Jboss Jvm Xms(mb)"
       required: true
-      default: 1024
+      default: 1028
       type: "int"
     - variable: "Jboss_jvm_Xmx"
       description: "jvm Xmx, default 1024m."
       label: "Jboss Jvm Xmx(mb)"
       required: true
-      default: 1024
+      default: 1028
       type: "int"
     - variable: "Jboss_jvm_XX_MaxPermSize"
       description: "jvm Xmx, default 512m."
@@ -48,26 +48,32 @@
     - variable: "webui_cpu"
       description: "WebUi  CPUs in which to allow execution (0-3, 0,1)"
       label: "WebUi Compute CPUs"
+      defaut: "0-3"
       type: "string"
     - variable: "qcs_cpu"
       description: "jboss  CPUs in which to allow execution (0-3, 0,1)"
       label: "Qcs Compute CPUs"
+      defaut: "0-3"
       type: "string"
     - variable: "qms_cpu"
       description: "Qms  CPUs in which to allow execution (0-3, 0,1)"
       label: "jboss Compute CPUs"
+      defaut: "0-3"
       type: "string"
     - variable: "webui_mem"
       description: "WebUi Compute Memory Limit"
       label: "WebUi Compute Memory Limit (MB)"
+      default: 2048
       type: "int"
     - variable: "qcs_mem"
       description: "Qcs Compute Memory Limit"
       label: "Qcs Compute Memory Limit (MB)"
       type: "int"
+     default: 2048
     - variable: "qms_mem"
       description: "Qms Container Memory Limit"
       label: "Qms Node Memory Limit (MB)"
+      default: 2048
       type: "int"
     - variable: "qms_zk_link"
       description: |
