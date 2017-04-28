@@ -83,6 +83,14 @@
       default: "kafka-zk/zk"
       required: true
       type: "service"
+    - variable: "kafka_link"
+      description: |
+        Choose the Zookeeper service to use. 
+        It's really recommended a dedicated zookeeper service just for Kafka.
+      label: "Zookeeper stack/service(Qms)"
+      default: "kafka/broker"
+      required: true
+      type: "service"
     - variable: "qcs_zk_link"
       description: |
         Choose the Zookeeper service to use. 
