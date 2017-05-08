@@ -1,6 +1,6 @@
 .catalog:
   name: "MySQL"
-  version: "v5.7.18"
+  version: "5.7.18-1.el7.x86_64"
   description: "FLEX-STREAM MySQL"
   questions:
     - variable: "MYSQL_ROOT_PASSWORD"
@@ -75,11 +75,7 @@
       label: "MySQL_MEM_LIMIT(MB)"
       default: 2048
       type: "int"
-    - variable: "MySQL_CPU"
-      description: "MySQL_CPU CPUs in which to allow execution (0-3, 0,1)"
-      label: "MySQL_CPU"
-      default: "0-3"
-      type: "string"
+
 
 mysql:
   scale: ${MySQL_SCALE}

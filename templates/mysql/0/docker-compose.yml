@@ -1,11 +1,10 @@
 
 mysql:
-  image: 172.16.54.136:5000/test/mysql:v5.7.18
+  image: docker-registry:6000/iosa/mysql:v5.7.18
   mem_limit: ${MySQL_MEM_LIMIT}000000
   tty: true
   stdin_open: true
   privileged: true
-  cpuset: ${MySQL_CPU}
 
   volumes:
   - ${INIT_DB_SCRIPTS}:/docker-entrypoint-initdb.d

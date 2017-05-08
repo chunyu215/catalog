@@ -1,6 +1,6 @@
 .catalog:
   name: "IOSA"
-  version: "v0.0.2"
+  version: "v0.0.1"
   description: "FLEX-STREAM IOSA All"
   questions:
     - variable: "webui_scale"
@@ -45,6 +45,24 @@
       required: true
       default: 521
       type: "int"
+    - variable: "webui_cpu"
+      description: "WebUi  CPUs in which to allow execution (0-3, 0,1)"
+      label: "WebUi Compute CPUs"
+      defaut: "0-3"
+      required: true
+      type: "string"
+    - variable: "qcs_cpu"
+      description: "jboss  CPUs in which to allow execution (0-3, 0,1)"
+      label: "Qcs Compute CPUs"
+      required: true
+      defaut: "0-3"
+      type: "string"
+    - variable: "qms_cpu"
+      description: "Qms  CPUs in which to allow execution (0-3, 0,1)"
+      label: "jboss Compute CPUs"
+      defaut: "0-3"
+      required: true
+      type: "string"
     - variable: "webui_mem"
       description: "WebUi Compute Memory Limit"
       label: "WebUi Compute Memory Limit (MB)"

@@ -1,0 +1,5 @@
+name: FLEX-STREAM mysql-5.7.13-1.el7.x86_64
+description: |
+   Certusnet Flex-STREAM MySQL Database
+version: 5.7.13-1.el7.x86_64
+category: clustering
