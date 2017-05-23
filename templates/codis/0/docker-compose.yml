@@ -12,7 +12,7 @@ codis-zk:
    - CONFD_INTERVAL=${zk_interval}
      
 dashboard:
-  image: 172.16.54.136:5000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis:v3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -28,7 +28,7 @@ dashboard:
   command: codis-dashboard -l log/dashboard.log -c dashboard.toml  --host-admin 0.0.0.0:18080
 
 proxy:
-  image: 172.16.54.136:5000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis:v3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -41,10 +41,11 @@ proxy:
   - ${PROXY_ADMIN_PORT}:19000
   links:
   - codis-zk:codis-zk-service
+  - dashboard:dashboard-service
   command: codis-proxy -l log/proxy.log -c proxy.toml --host-admin 0.0.0.0:11080 --host-proxy 0.0.0.0:19000
   
 fe:
-  image: 172.16.54.136:5000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis:v3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -56,10 +57,11 @@ fe:
   - ${FE_ADMIN_PORT}:8080
   links:
   - codis-zk:codis-zk-service
+  - dashboard:dashboard-service
   command: codis-fe -l log/fe.log --zookeeper codis-zk-service:2181 --listen=0.0.0.0:8080 --assets=/gopath/src/github.com/CodisLabs/codis/bin/assets
    
 server-master:
-  image: 172.16.54.136:5000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis:v3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -70,10 +72,11 @@ server-master:
   - /opt/iosa_deploy/codis/log:/log
   links:
   - codis-zk:codis-zk-service
+  - dashboard:dashboard-service
   command: codis-server redis.conf --logfile ../log/8000.log
   
 server-slave:
-  image: 172.16.54.136:5000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis:v3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -84,11 +87,14 @@ server-slave:
   - /opt/iosa_deploy/codis/log:/log
   ports:
   - 8001:6379
+  links:
+  - codis-zk:codis-zk-service
+  - server-master:server-master-service
   command: codis-server redis.conf --logfile ../log/8001.log
    
   
 sentinel:
-  image: 172.16.54.136:5000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis:v3.2
   tty: true
   stdin_open: true
   privileged: true
