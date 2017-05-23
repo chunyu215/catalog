@@ -4,7 +4,7 @@ codis-zk:
   stdin_open: true
   privileged: true
   volumes:
-  - ${}:/opt/zk/data
+  - /opt/iosa_deploy/codis/zk-data:/opt/zk/data
   labels:
     io.rancher.container.hostname_override: container_name  
   environment:
