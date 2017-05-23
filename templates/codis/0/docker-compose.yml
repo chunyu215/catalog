@@ -1,5 +1,5 @@
 codis-zk:
-  image: docker-registry:6000/rawmind/rancher-zk:3.4.6-1
+  image: 172.16.54.136:5000/rawmind/rancher-zk:3.4.6-1
   tty: true
   stdin_open: true
   privileged: true
@@ -12,7 +12,7 @@ codis-zk:
   - CONFD_INTERVAL=${zk_interval}
      
 dashboard:
-  image: docker-registry:6000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -28,7 +28,7 @@ dashboard:
   command: codis-dashboard -l log/dashboard.log -c dashboard.toml  --host-admin 0.0.0.0:18080
 
 proxy:
-  image: docker-registry:6000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -44,7 +44,7 @@ proxy:
   command: codis-proxy -l log/proxy.log -c proxy.toml --host-admin 0.0.0.0:11080 --host-proxy 0.0.0.0:19000
   
 fe:
-  image: docker-registry:6000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -59,7 +59,7 @@ fe:
   command: codis-fe -l log/fe.log --zookeeper codis-zk-service:2181 --listen=0.0.0.0:8080 --assets=/gopath/src/github.com/CodisLabs/codis/bin/assets
    
 server-master:
-  image: docker-registry:6000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -73,7 +73,7 @@ server-master:
   command: codis-server redis.conf --logfile ../log/8000.log
   
 server-slave:
-  image: docker-registry:6000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis3.2
   tty: true
   stdin_open: true
   privileged: true
@@ -88,7 +88,7 @@ server-slave:
    
   
 sentinel:
-  image: docker-registry:6000/test/codis3.2
+  image: 172.16.54.136:5000/test/codis3.2
   tty: true
   stdin_open: true
   privileged: true
