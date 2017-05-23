@@ -41,7 +41,7 @@ proxy:
   - /opt/iosa_deploy/codis/config/proxy.toml:/codis/proxy.toml
   - /opt/iosa_deploy/codis/log:/codis/log
   ports:
-  - ${PROXY_ADMIN_PORT}:19000
+  - ${PROXY_PORT}:19000
   - ${PROXY_ADMIN_PORT}:11080
   links:
   - codis-zk:codis-zk-service
