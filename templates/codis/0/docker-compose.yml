@@ -8,8 +8,8 @@ codis-zk:
   labels:
     io.rancher.container.hostname_override: container_name  
   environment:
-  - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
-  - CONFD_INTERVAL=${zk_interval}
+   - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
+   - CONFD_INTERVAL=${zk_interval}
      
 dashboard:
   image: 172.16.54.136:5000/test/codis3.2
@@ -19,8 +19,8 @@ dashboard:
   labels:
     io.rancher.container.hostname_override: container_name  
   volumes:
-  -/opt/iosa_deploy/codis/config/dashboard.toml:/codis/dashboard.toml  
-  -/opt/iosa_deploy/codis/log:/codis/log
+  - /opt/iosa_deploy/codis/config/dashboard.toml:/codis/dashboard.toml  
+  - /opt/iosa_deploy/codis/log:/codis/log
   ports:
   - ${DASH_ADMIN_PORT}:18080
   links:
@@ -35,8 +35,8 @@ proxy:
   labels:
     io.rancher.container.hostname_override: container_name  
   volumes:
-  -/opt/iosa_deploy/codis/config/proxy.toml:/codis/proxy.toml
-  -/opt/iosa_deploy/codis/log:/codis/log
+  - /opt/iosa_deploy/codis/config/proxy.toml:/codis/proxy.toml
+  - /opt/iosa_deploy/codis/log:/codis/log
   ports:
   - ${PROXY_ADMIN_PORT}:19000
   links:
@@ -51,7 +51,7 @@ fe:
   labels:
     io.rancher.container.hostname_override: container_name  
   volumes:
-  -/opt/iosa_deploy/codis/log:/codis/log
+  - /opt/iosa_deploy/codis/log:/codis/log
   ports:
   - ${FE_ADMIN_PORT}:8080
   links:
@@ -66,8 +66,8 @@ server-master:
   labels:
     io.rancher.container.hostname_override: container_name  
   volumes:
-  -/opt/iosa_deploy/codis/config/master:/codis
-  -/opt/iosa_deploy/codis/log:/log
+  - /opt/iosa_deploy/codis/config/master:/codis
+  - /opt/iosa_deploy/codis/log:/log
   links:
   - codis-zk:codis-zk-service
   command: codis-server redis.conf --logfile ../log/8000.log
@@ -80,8 +80,8 @@ server-slave:
   labels:
     io.rancher.container.hostname_override: container_name  
   volumes:
-  -/opt/iosa_deploy/codis/config/slave:/codis
-  -/opt/iosa_deploy/codis/log:/log
+  - /opt/iosa_deploy/codis/config/slave:/codis
+  - /opt/iosa_deploy/codis/log:/log
   ports:
   - 8001:6379
   command: codis-server redis.conf --logfile ../log/8001.log
@@ -95,8 +95,8 @@ sentinel:
   labels:
     io.rancher.container.hostname_override: container_name  
   volumes:
-  -/opt/iosa_deploy/codis/config/sentinel:/codis
-  -/opt/iosa_deploy/codis/log:/log
+  - /opt/iosa_deploy/codis/config/sentinel:/codis
+  - /opt/iosa_deploy/codis/log:/log
   ports:
   - ${SENTINEL_PORT}:26379
   links:
