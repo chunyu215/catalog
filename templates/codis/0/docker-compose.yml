@@ -6,7 +6,9 @@ codis-zk:
   volumes:
   - /opt/iosa_deploy/codis/zk-data:/opt/zk/data
   labels:
-    io.rancher.container.hostname_override: container_name  
+    io.rancher.container.hostname_override: container_name
+  ports:
+  - 2181:2181
   environment:
    - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
    - CONFD_INTERVAL=${zk_interval}
@@ -25,7 +27,7 @@ dashboard:
   - ${DASH_ADMIN_PORT}:18080
   links:
   - codis-zk:codis-zk-service
-  command: codis-dashboard -l log/dashboard.log -c dashboard.toml  --host-admin 0.0.0.0:18080
+  command: codis-dashboard -l log/dashboard.log -c dashboard.toml  --host-admin ${DASH_ADMIN_IP}:${DASH_ADMIN_PORT}
 
 proxy:
   image: 172.16.54.136:5000/test/codis:v3.2
@@ -42,7 +44,7 @@ proxy:
   links:
   - codis-zk:codis-zk-service
   - dashboard:dashboard-service
-  command: codis-proxy -l log/proxy.log -c proxy.toml --host-admin 0.0.0.0:11080 --host-proxy 0.0.0.0:19000
+  command: codis-proxy -l log/proxy.log -c proxy.toml --host-admin ${DASH_ADMIN_IP}:21080 --host-proxy ${DASH_ADMIN_IP}:29000
   
 fe:
   image: 172.16.54.136:5000/test/codis:v3.2
@@ -107,6 +109,8 @@ sentinel:
   - ${SENTINEL_PORT}:26379
   links:
   - codis-zk:codis-zk-service
+  - server-master:server-master-service
+  - server-slave:server-slave-service
   command: codis-server sentinel.conf --sentinel --logfile ../log/7000.log
    
    
