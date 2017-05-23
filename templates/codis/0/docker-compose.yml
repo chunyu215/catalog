@@ -1,0 +1,110 @@
+codis-zk:
+  image: docker-registry:6000/rawmind/rancher-zk:3.4.6-1
+  tty: true
+  stdin_open: true
+  privileged: true
+  volumes:
+  - ${}:/opt/zk/data
+  labels:
+    io.rancher.container.hostname_override: container_name  
+  environment:
+  - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
+  - CONFD_INTERVAL=${zk_interval}
+     
+dashboard:
+  image: docker-registry:6000/test/codis3.2
+  tty: true
+  stdin_open: true
+  privileged: true
+  labels:
+    io.rancher.container.hostname_override: container_name  
+  volumes:
+  -/opt/iosa_deploy/codis/config/dashboard.toml:/codis/dashboard.toml  
+  -/opt/iosa_deploy/codis/log:/codis/log
+  ports:
+  - ${DASH_ADMIN_PORT}:18080
+  links:
+  - codis-zk:codis-zk-service
+  command: codis-dashboard -l log/dashboard.log -c dashboard.toml  --host-admin 0.0.0.0:18080
+
+proxy:
+  image: docker-registry:6000/test/codis3.2
+  tty: true
+  stdin_open: true
+  privileged: true
+  labels:
+    io.rancher.container.hostname_override: container_name  
+  volumes:
+  -/opt/iosa_deploy/codis/config/proxy.toml:/codis/proxy.toml
+  -/opt/iosa_deploy/codis/log:/codis/log
+  ports:
+  - ${PROXY_ADMIN_PORT}:19000
+  links:
+  - codis-zk:codis-zk-service
+  command: codis-proxy -l log/proxy.log -c proxy.toml --host-admin 0.0.0.0:11080 --host-proxy 0.0.0.0:19000
+  
+fe:
+  image: docker-registry:6000/test/codis3.2
+  tty: true
+  stdin_open: true
+  privileged: true
+  labels:
+    io.rancher.container.hostname_override: container_name  
+  volumes:
+  -/opt/iosa_deploy/codis/log:/codis/log
+  ports:
+  - ${FE_ADMIN_PORT}:8080
+  links:
+  - codis-zk:codis-zk-service
+  command: codis-fe -l log/fe.log --zookeeper codis-zk-service:2181 --listen=0.0.0.0:8080 --assets=/gopath/src/github.com/CodisLabs/codis/bin/assets
+   
+server-master:
+  image: docker-registry:6000/test/codis3.2
+  tty: true
+  stdin_open: true
+  privileged: true
+  labels:
+    io.rancher.container.hostname_override: container_name  
+  volumes:
+  -/opt/iosa_deploy/codis/config/master:/codis
+  -/opt/iosa_deploy/codis/log:/log
+  links:
+  - codis-zk:codis-zk-service
+  command: codis-server redis.conf --logfile ../log/8000.log
+  
+server-slave:
+  image: docker-registry:6000/test/codis3.2
+  tty: true
+  stdin_open: true
+  privileged: true
+  labels:
+    io.rancher.container.hostname_override: container_name  
+  volumes:
+  -/opt/iosa_deploy/codis/config/slave:/codis
+  -/opt/iosa_deploy/codis/log:/log
+  ports:
+  - 8001:6379
+  command: codis-server redis.conf --logfile ../log/8001.log
+   
+  
+sentinel:
+  image: docker-registry:6000/test/codis3.2
+  tty: true
+  stdin_open: true
+  privileged: true
+  labels:
+    io.rancher.container.hostname_override: container_name  
+  volumes:
+  -/opt/iosa_deploy/codis/config/sentinel:/codis
+  -/opt/iosa_deploy/codis/log:/log
+  ports:
+  - ${SENTINEL_PORT}:26379
+  links:
+  - codis-zk:codis-zk-service
+  command: codis-server sentinel.conf --sentinel --logfile ../log/7000.log
+   
+   
+   
+   
+
+ 

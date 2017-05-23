@@ -1,0 +1,107 @@
+.catalog:
+  name: "Codis"
+  version: "3.2"
+  description: "FLEX-STREAM Codis"
+  maintainer: "flex iosa"
+  uuid: zk-0
+  questions:
+    - variable: "Codis_Zookeeper_Scale"
+      description: "Codis_Zookeeper_Scale in rancher ."
+      label: "Codis_Zookeeper_Scale"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "Codis_Proxy_Scale"
+      description: "Codis_Proxy_Scale in rancher ."
+      label: "Codis_Proxy_Scale"
+      required: true
+      default: 3
+      type: "int"
+    - variable: "Codis_Server_Master_Scale"
+      description: "Codis_Server_Master_Scale in rancher ."
+      label: "Codis_Server_Master_Scale"
+      required: true
+      default: 4
+      type: "int"
+    - variable: "Codis_Server_Slave_Scale"
+      description: "Codis_Server_Slave_Scale in rancher ."
+      label: "Codis_Server_Slave_Scale"
+      required: true
+      default: 4
+      type: "int"
+    - variable: "Codis_Sentinel_Scale"
+      description: "Codis_Sentinel_Scale in rancher ."
+      label: "Codis_Sentinel_Scale"
+      required: true
+      default: 3
+      type: "int"
+    - variable: "zk_mem"
+      description: "Amount of memory to config zk."
+      label: "Zk Memory (mb):"
+      required: true
+      default: 512 
+      type: "string"
+    - variable: "zk_interval"
+      description: "Interval to poll/apply configuration changes. 0 to disable, reconfiguration will be done when you restart zk nodes"
+      label: "Zk Interval (s):"
+      required: true
+      default: 60
+      type: "int"
+    - variable: "DASH_ADMIN_PORT"
+      description: "DASH_ADMIN_PORT, default 28080"
+      label: "DASH_ADMIN_PORT"
+      default: "28080"
+      type: "string"
+    - variable: "DASH_ADMIN_IP"
+      description: "DASH_ADMIN_IP, default 172.16.54.136"
+      label: "DASH_ADMIN_IP"
+      default: "172.16.54.136"
+      type: "string"
+    - variable: "FE_ADMIN_PORT"
+      description: "FE_ADMIN_PORT, default 9090"
+      label: "FE_ADMIN_PORT"
+      default: "9090"
+      type: "string"
+    - variable: "PROXY_ADMIN_PORT"
+      description: "PROXY_ADMIN_PORT, default 29000"
+      label: "PROXY_ADMIN_PORT"
+      default: "29000"
+      type: "string"
+    - variable: "SENTINEL_PORT"
+      description: "SENTINEL_PORT, default 7000"
+      label: "SENTINEL_PORT"
+      default: "7000"
+      type: "string"
+    
+
+codis-zk:
+  scale: ${Codis_Zookeeper_Scale}
+  health_check:
+    port: 2181
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+  
+dashboard:
+  scale: 1
+  
+fe:
+  scale: 1
+  
+proxy:
+  scale: ${Codis_Proxy_Scale}
+  
+server-master:
+  scale: ${Codis_Server_Master_Scale}
+  
+server-slave:
+  scale: ${Codis_Server_Slave_Scale}
+  
+sentinel:
+  scale: ${Codis_Sentinel_Scale}
+
+
+  
+

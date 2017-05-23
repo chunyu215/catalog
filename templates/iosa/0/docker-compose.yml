@@ -1,5 +1,5 @@
 topic:
-  image: 172.16.54.136:5000/iosa/topic:0.0.1
+  image: docker-registry:6000/iosa/topic:0.0.1
   privileged: true
   labels:
     io.certus.iosa.service.name: topic
@@ -8,7 +8,7 @@ topic:
   - ${qcs_zk_link}:zk
 
 qms:
-  image: 172.16.54.136:5000/iosa/jboss:6.0.0
+  image: docker-registry:6000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${qms_cpu}
   mem_limit: ${qms_mem}000000
@@ -34,7 +34,7 @@ qms:
   - ${mysql_link}:mysql
 
 qcs:
-  image: 172.16.54.136:5000/iosa/jboss:6.0.0
+  image: docker-registry:6000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${qcs_cpu}
   mem_limit: ${qcs_mem}000000
@@ -59,7 +59,7 @@ qcs:
   - ${mysql_link}:mysql
 
 webui:
-  image: 172.16.54.136:5000/iosa/jboss:6.0.0
+  image: docker-registry:6000/iosa/jboss:6.0.0
   privileged: true
   cpuset: ${webui_cpu}
   mem_limit: ${webui_mem}000000
