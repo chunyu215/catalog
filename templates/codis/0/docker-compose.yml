@@ -4,7 +4,8 @@ codis-zk:
   stdin_open: true
   privileged: true
   volumes:
-  - /opt/iosa_deploy/codis/zk-data:/opt/zk/data
+  - /opt/iosa_deploy/codis/zk/data:/opt/zk/data
+  - /opt/iosa_deploy/codis/zk/logs:/opt/zk/logs
   labels:
     io.rancher.container.hostname_override: container_name
   ports:
@@ -41,6 +42,7 @@ proxy:
   - /opt/iosa_deploy/codis/log:/codis/log
   ports:
   - ${PROXY_ADMIN_PORT}:19000
+  - ${PROXY_ADMIN_PORT}:11080
   links:
   - codis-zk:codis-zk-service
   - dashboard:dashboard-service
@@ -72,6 +74,8 @@ server-master:
   volumes:
   - /opt/iosa_deploy/codis/config/master:/codis
   - /opt/iosa_deploy/codis/log:/log
+  ports:
+  - ${SERVER_MASTER_PORT}:6379
   links:
   - codis-zk:codis-zk-service
   - dashboard:dashboard-service
@@ -88,7 +92,7 @@ server-slave:
   - /opt/iosa_deploy/codis/config/slave:/codis
   - /opt/iosa_deploy/codis/log:/log
   ports:
-  - 8001:6379
+  - ${SERVER_SLAVE_PORT}:6379
   links:
   - codis-zk:codis-zk-service
   - server-master:server-master-service
