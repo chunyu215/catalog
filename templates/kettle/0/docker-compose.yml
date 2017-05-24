@@ -1,0 +1,21 @@
+
+kettle:
+  image: 172.16.54.136:5000/test/kettle:5.3.0.0
+  tty: true
+  stdin_open: true
+  privileged: true
+  labels:
+    io.rancher.container.hostname_override: container_name  
+  volumes:
+  - /opt/iosa_deploy/kettle:/usr/local/iosa/kettle
+  external_links:
+  - ${influxdb_link}:influxdb
+  - ${mysql_link}:mysql
+  environment:
+  PENTAHO_DI_JAVA_OPTIONS: -Xms${Kettle_JVM_Xms}m -Xmx${Kettle_JVM_Xmx}m -XX:MaxPermSize=${Kettle_jvm_XX_MaxPermSize}m
+   
+   
+   
+   
+
+ 

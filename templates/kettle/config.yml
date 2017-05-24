@@ -1,0 +1,5 @@
+name: FLEX-STREAM Kettle
+description: |
+   Certusnet Flex-STREAM Kettle
+version: pdi-ce-5.3.0.0-213
+category: clustering
