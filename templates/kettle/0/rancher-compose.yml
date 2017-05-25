@@ -2,8 +2,6 @@
   name: "Kettle"
   version: "pdi-ce-5.3.0.0-213"
   description: "FLEX-STREAM Kettle"
-  maintainer: "flex iosa"
-  uuid: zk-0
   questions:
     - variable: "Kettle_JVM_Xms"
       description: "jvm Xms, default 1024m."
@@ -24,21 +22,18 @@
       default: 1024
       type: "int"
     - variable: "mysql_link"
-      description: |
-        Choose the MySQL service to use.
+      description: "Choose the MySQL service to use."
       label: "MySQL stack/service"
       default: "mysql/mysql"
       required: false
       type: "service"
     - variable: "influxdb_link"
-      description: |
-        Choose the InfluxDB service to use.
+      description: "Choose the InfluxDB service to use."
       label: "InfluxDB stack/service"
       default: "influxdb/influxdb"
       required: false
       type: "service"
-       
-  
+
 kettle:
   scale: 1
   health_check:
