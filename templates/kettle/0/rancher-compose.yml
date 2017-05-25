@@ -15,7 +15,7 @@
       required: true
       default: 2048
       type: "int"
-     - variable: "Kettle_jvm_XX_MaxPermSize"
+    - variable: "Kettle_jvm_XX_MaxPermSize"
       description: "jvm Xmx, default 512m."
       label: "Kettle Jvm MaxPermSize(mb)"
       required: true
