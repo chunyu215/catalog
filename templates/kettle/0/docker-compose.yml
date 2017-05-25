@@ -8,7 +8,6 @@ kettle:
   volumes:
   - /opt/iosa_deploy/kettle:/usr/local/iosa/kettle
   external_links:
-  - ${influxdb_link}:influxdb
   - ${mysql_link}:mysql
   environment:
     PENTAHO_DI_JAVA_OPTIONS: -Xms${Kettle_JVM_Xms}m -Xmx${Kettle_JVM_Xmx}m -XX:MaxPermSize=${Kettle_jvm_XX_MaxPermSize}m
