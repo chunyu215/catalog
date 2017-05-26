@@ -21,7 +21,7 @@ influxdb-volume:
     SERVICE_GID: '0'
     SERVICE_UID: '0'
     SERVICE_VOLUME: /var/lib/influxdb
-  network_mode: none
+  net: none
   volumes:
   - /opt/iosa_deploy/influxdb/data:/var/lib/influxdb
   labels:
