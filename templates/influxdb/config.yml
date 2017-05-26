@@ -1,0 +1,5 @@
+name: FLEX-STREAM Influxdb
+description: |
+   Certusnet Flex-STREAM Influxdb
+version: 1.2.2-rancher1
+category: clustering
