@@ -44,11 +44,13 @@ lb:
   lb_config:
     certs: []
     port_rules:
-    - priority: 1
-    protocol: http
-    service: influxdb
-    source_port: ${expose_port}
-    target_port: 8086
+    - hostname: 172.16.54.136
+      path: /
+      priority: 1
+      protocol: http
+      service: influxdb
+      source_port: 8086
+      target_port: 8086
   health_check:
     healthy_threshold: 2
     response_timeout: 2000
@@ -56,4 +58,3 @@ lb:
     unhealthy_threshold: 3
     interval: 2000
     strategy: recreate
-
