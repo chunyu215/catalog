@@ -1,0 +1,47 @@
+.catalog:
+  name: "Influxdb"
+  version: "influxdb-0.13.0"
+  description: "FLEX-STREAM Influxdb"
+  questions:
+    - variable: "influxdb_scale"
+      description: "The number of influxdb instance in rancher ."
+      label: "Add Inlfuxdb Host Number"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "expose_port"
+      description: "port to export, default 8086."
+      label: "influxdb expose port"
+      required: true
+      default: "8086"
+      type: "string"
+    - variable: "expose_admin_port"
+      description: "admin port to export, default 9031."
+      label: "influxdb expose admin port"
+      required: true
+      default: "9031"
+      type: "string"
+    - variable: "data_dir"
+      description: "data dir on host, default /opt/iosa_deploy/influxdb/data"
+      label: "data dir on host"
+      required: true
+      default: "/opt/iosa_deploy/influxdb/data"
+      type: "string"
+    - variable: "log_dir"
+      description: "log dir on host, default /opt/iosa_deploy/influxdb/log"
+      label: "log dir on host"
+      required: true
+      default: "/opt/iosa_deploy/influxdb/log"
+      type: "string"
+
+influxdb:
+  scale: ${influxdb_scale}
+  start_on_create: true
+  health_check:
+    healthy_threshold: 2
+    response_timeout: 2000
+    port: 8086
+    unhealthy_threshold: 3
+    interval: 2000
+    strategy: recreate
+

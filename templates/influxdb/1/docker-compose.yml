@@ -1,0 +1,20 @@
+influxdb:
+  image: influxdb:1.2.2-alpine
+  stdin_open: true
+  tty: true
+  volumes:
+  - ${data_dir}:/var/lib/influxdb
+  - /opt/iosa_deploy/influxdb/config/influxdb:/etc/init.d/influxdb
+  - /opt/iosa_deploy/influxdb/config/influxdb.conf:/etc/influxdb/influxdb.conf
+  - ${log_dir}:/var/log/influxdb
+  environment:
+    INFLUXD_OPTS: -config /etc/influxdb/influxdb.conf
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+  ports:
+  - ${expose_port}:8086
+  - ${expose_admin_port}:9031
+  command: influxd ${INFLUXD_OPTS}
+  entrypoint: /opt/influxdb/entrypoint.sh
+
