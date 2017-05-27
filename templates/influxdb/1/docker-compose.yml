@@ -1,5 +1,5 @@
 influxdb:
-  image: influxdb:1.2.2-alpine
+  image: 172.16.54.136:5000/test/influxdb:0.13.x86_64
   stdin_open: true
   tty: true
   volumes:
