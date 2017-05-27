@@ -1,5 +1,5 @@
 influxdb:
-  image: 172.16.54.136:5000/test/influxdb:0.13.x86_64
+  image: 172.16.54.136:5000/test/influxdb:0.13.0
   stdin_open: true
   tty: true
   volumes:
