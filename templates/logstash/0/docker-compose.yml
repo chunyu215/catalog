@@ -1,4 +1,4 @@
-influxdb:
+logstash:
   image: 172.16.54.136:5000/test/logstash:2.3.4
   stdin_open: true
   tty: true
