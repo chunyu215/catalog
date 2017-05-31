@@ -3,7 +3,7 @@ logstash:
   stdin_open: true
   tty: true
   volumes:
-  - ${logstash_dir_host}/bin/certus_logstash_run.sh:/opt/logstash/bin/certus_logstash_run.sh
+  - ${logstash_dir_host}/bin/certus_logstash_run.sh:/opt/logstash/certus_logstash_run.sh
   - ${logstash_dir_host}/bin/env.sh:/opt/logstash/bin/env.sh
   - ${logstash_dir_host}/script:/opt/logstash/script
   - ${logstash_dir_host}/logs:/opt/logstash/logs
@@ -12,4 +12,5 @@ logstash:
   labels:
     io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     io.rancher.container.hostname_override: container_name
-
+  command: /opt/logstash/certus_logstash_run.sh
+  entrypoint: /opt/logstash/entrypoint.sh

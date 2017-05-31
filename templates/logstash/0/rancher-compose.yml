@@ -24,6 +24,6 @@
 
 logstash:
   scale: ${logstash_scale}
-  start_on_create: true
+
 
 
