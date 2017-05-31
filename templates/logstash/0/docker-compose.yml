@@ -1,0 +1,16 @@
+influxdb:
+  image: 172.16.54.136:5000/test/logstash:2.3.4
+  stdin_open: true
+  tty: true
+  volumes:
+  - ${logstash_dir_host}/bin/certus_logstash_run.sh:/opt/logstash/bin/certus_logstash_run.sh
+  - ${logstash_dir_host}/bin/env.sh:/opt/logstash/bin/env.sh
+  - ${logstash_dir_host}/script:/opt/logstash/script
+  - ${logstash_dir_host}/logs:/opt/logstash/logs
+  environment:
+    LS_HEAP_SIZE: ${LS_HEAP_SIZE}m
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+  entrypoint: /opt/logstash/entrypoint.sh
+

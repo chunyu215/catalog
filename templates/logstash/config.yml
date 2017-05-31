@@ -1,0 +1,5 @@
+name: FLEX-STREAM Logstash
+description: |
+   Certusnet Flex-STREAM Logstash
+version: 2.3.4
+category: clustering

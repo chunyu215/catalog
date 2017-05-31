@@ -1,0 +1,29 @@
+.catalog:
+  name: "Logstash"
+  version: "Logstash-2.3.4"
+  description: "FLEX-STREAM Logstash"
+  questions:
+    - variable: "logstash_scale"
+      description: "The number of influxdb instance in rancher ."
+      label: "Add Inlfuxdb Host Number"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "LS_HEAP_SIZE"
+      description: "LS_HEAP_SIZE unit is Mb, default 4096m."
+      label: "LS_HEAP_SIZE"
+      required: true
+      default: 4096
+      type: "int"
+    - variable: "logstash_dir_host"
+      description: "logstash_dir_hostdir on host, default /opt/iosa_deploy/logstash"
+      label: "logstash dir on host"
+      required: true
+      default: "/opt/iosa_deploy/logstash"
+      type: "string"
+
+logstash:
+  scale: ${logstash_scale}
+  start_on_create: true
+
+
