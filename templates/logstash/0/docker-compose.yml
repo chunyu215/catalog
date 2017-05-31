@@ -4,7 +4,7 @@ logstash:
   tty: true
   volumes:
   - ${logstash_dir_host}/bin/certus_logstash_run.sh:/opt/logstash/certus_logstash_run.sh
-  - ${logstash_dir_host}/bin/env.sh:/opt/logstash/bin/env.sh
+  - ${logstash_dir_host}/bin/env.sh:/opt/logstash/env.sh
   - ${logstash_dir_host}/script:/opt/logstash/script
   - ${logstash_dir_host}/logs:/opt/logstash/logs
   environment:
