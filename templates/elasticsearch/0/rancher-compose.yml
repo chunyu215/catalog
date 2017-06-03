@@ -1,0 +1,47 @@
+.catalog:
+  name: "elasticsearch"
+  version: "elasticsearch-2.2.1"
+  description: "FLEX-STREAM elasticsearch"
+  questions: 
+    - variable: "minimum_master_nodes"
+      type: "int"
+      required: true
+      label: "# of minimum Master Nodes"
+      description: "Set the number of required master nodes to reach quorum. Sets initial scale to this value as well"
+      default: 3
+    - variable: "initial_client_nodes"
+      type: "int"
+      required: true
+      label: "# of initial client nodes"
+      description: "Set the initial number of client nodes"
+      default: 1
+    - variable: "initial_data_nodes"
+      type: "int"
+      required: true
+      label: "# of initial data nodes"
+      description: "Set the initial number of data nodes"
+      default: 2
+    - variable: "expose_admin_port"
+      description: "admin port to export, default 9200."
+      label: "elasticsearch expose admin port"
+      required: true
+      default: "9200"
+      type: "string"
+    - variable: "elastic_search_base_dir"
+      description: "elastic search base dir on host, default /opt/iosa_deploy/elasticsearch"
+      label: "elastic search base dir on host"
+      required: true
+      default: "/opt/iosa_deploy/elasticsearch"
+      type: "string"
+
+es-master:
+  scale: ${minimum_master_nodes}
+
+es-client:
+  scale: ${initial_client_nodes}
+
+es-data:
+  scale: ${initial_data_nodes}
+
+
+

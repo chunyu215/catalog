@@ -1,0 +1,20 @@
+es-master:
+  image: 172.16.54.136:5000/test/elasticsearch:2.2.1.el7x86_64
+  stdin_open: true
+  tty: true
+  volumes:
+  - ${data_base_dir}/master/data:/opt/elasticsearch/data
+  - ${elastic_search_base_dir}/master/bin/elasticsearch.in.sh:/opt/elasticsearch/bin/elasticsearch.in.sh
+  - ${elastic_search_base_dir}/master/config/elasticsearch.yml:/opt/elasticsearch/config/elasticsearch.yml
+  - ${elastic_search_base_dir}/master/config/logging.yml:/opt/elasticsearch/config/logging.yml
+  - ${elastic_search_base_dir}/master/logs:/opt/elasticsearch/logs
+  environment:
+    ES_OPTS: -Des.insecure.allow.root=true
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: es-master-1
+  ports:
+  - ${expose_admin_port}:9200
+  command: elasticsearch ${ES_OPTS}
+  entrypoint: /opt/influxdb/entrypoint.sh
+

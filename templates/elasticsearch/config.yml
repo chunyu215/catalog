@@ -1,0 +1,5 @@
+name: FLEX-STREAM elasticsearch
+description: |
+   Certusnet Flex-STREAM elasticsearch
+version: 2.2.1
+category: clustering
