@@ -16,7 +16,7 @@ es-master:
   ports:
   - ${expose_admin_port}:9200
   command: elasticsearch ${ES_OPTS}
-  entrypoint: /opt/elasticsearch/entrypoint.sh
+  entrypoint: /opt/entrypoint.sh
 
 es-client:
   image: 172.16.54.136:5000/test/elasticsearch:2.2.1.el7x86_64
@@ -36,7 +36,7 @@ es-client:
   ports:
   - 9201:9200
   command: elasticsearch ${ES_OPTS}
-  entrypoint: /opt/elasticsearch/entrypoint.sh
+  entrypoint: /opt/entrypoint.sh
   
   
 es-data:
@@ -57,5 +57,5 @@ es-data:
   ports:
   - 9202:9200
   command: elasticsearch ${ES_OPTS}
-  entrypoint: /opt/elasticsearch/entrypoint.sh
+  entrypoint: /opt/entrypoint.sh
   
