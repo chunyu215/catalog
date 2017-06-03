@@ -16,5 +16,5 @@ es-master:
   ports:
   - ${expose_admin_port}:9200
   command: elasticsearch ${ES_OPTS}
-  entrypoint: /opt/influxdb/entrypoint.sh
+  entrypoint: /opt/elasticsearch/entrypoint.sh
 
