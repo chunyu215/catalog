@@ -1,5 +1,5 @@
 es-master:
-  image: 172.16.54.136:5000/test/elasticsearch:2.2.1.el7x86_64
+  image: 172.16.54.136:5000/test/elasticsearch:2.2.1
   stdin_open: true
   tty: true
   volumes:
@@ -19,7 +19,7 @@ es-master:
   entrypoint: /opt/entrypoint.sh
 
 es-client:
-  image: 172.16.54.136:5000/test/elasticsearch:2.2.1.el7x86_64
+  image: 172.16.54.136:5000/test/elasticsearch:2.2.1
   stdin_open: true
   tty: true
   volumes:
@@ -40,7 +40,7 @@ es-client:
   
   
 es-data:
-  image: 172.16.54.136:5000/test/elasticsearch:2.2.1.el7x86_64
+  image: 172.16.54.136:5000/test/elasticsearch:2.2.1
   stdin_open: true
   tty: true
   volumes:
