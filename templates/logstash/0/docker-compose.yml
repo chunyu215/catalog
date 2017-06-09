@@ -9,6 +9,15 @@ logstash:
   - ${logstash_dir_host}/logs:/opt/logstash/logs
   environment:
     LS_HEAP_SIZE: ${LS_HEAP_SIZE}m
+  external_links:
+  - ${LOGSTASH_ZK_LINK}:logstash-zk-svc
+  - ${MYSQL_JDBC_CONNECTION_0}:mysql-svc-0
+  - ${MYSQL_JDBC_CONNECTION_1}:mysql-svc-1
+  - ${MYSQL_JDBC_CONNECTION_2}:mysql-svc-2
+  - ${MYSQL_JDBC_CONNECTION_3}:mysql-svc-3
+  - ${LOGSTASH_ES_HOSTS_1}:es-svc-1
+  - ${LOGSTASH_ES_HOSTS_2}:es-svc-2
+  - ${LOGSTASH_ES_HOSTS_3}:es-svc-3
   labels:
     io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     io.rancher.container.hostname_override: container_name

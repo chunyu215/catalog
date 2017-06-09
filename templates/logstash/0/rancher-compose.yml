@@ -21,6 +21,70 @@
       required: true
       default: "/opt/iosa_deploy/logstash"
       type: "string"
+    - variable: "LOGSTASH_KAFKA_ZK_CONNECT"
+      description: |
+        Choose the Zookeeper service to use. 
+        It's really recommended a dedicated zookeeper service just for Logstash.
+      label: "Zookeeper stack/service(Logstash)"
+      default: "kafka-zk/zk"
+      required: true
+      type: "service" 
+    - variable: "MYSQL_JDBC_CONNECTION_0"
+      description: |
+        Choose the MySql service to use. 
+        It's really recommended a dedicated MySql service just for Logstash.
+      label: "MYSQL_JDBC_CONNECTION_0 stack/service"
+      default: "mysql/mysql"
+      required: true
+      type: "service"
+    - variable: "MYSQL_JDBC_CONNECTION_1"
+      description: |
+        Choose the MySql service to use. 
+        It's really recommended a dedicated MySql service just for Logstash.
+      label: "MYSQL_JDBC_CONNECTION_1 stack/service"
+      default: "mysql/mysql"
+      required: true
+      type: "service"
+    - variable: "MYSQL_JDBC_CONNECTION_2"
+      description: |
+        Choose the MySql service to use. 
+        It's really recommended a dedicated MySql service just for Logstash.
+      label: "MYSQL_JDBC_CONNECTION_2 stack/service"
+      default: "mysql/mysql"
+      required: true
+      type: "service"
+    - variable: "MYSQL_JDBC_CONNECTION_3"
+      description: |
+        Choose the MySql service to use. 
+        It's really recommended a dedicated MySql service just for Logstash.
+      label: "MYSQL_JDBC_CONNECTION_3 stack/service"
+      default: "mysql/mysql"
+      required: true
+      type: "service"
+    - variable: "LOGSTASH_ES_HOSTS_1"
+      description: |
+        Choose the Elasticsearch service to use. 
+        It's really recommended a dedicated Elasticsearch service just for Logstash.
+      label: "LOGSTASH_ES_HOSTS_1 stack/service"
+      default: "elasticsearch/es-client"
+      required: true
+      type: "service"
+    - variable: "LOGSTASH_ES_HOSTS_2"
+      description: |
+        Choose the Elasticsearch service to use. 
+        It's really recommended a dedicated Elasticsearch service just for Logstash.
+      label: "LOGSTASH_ES_HOSTS_2 stack/service"
+      default: "elasticsearch/es-client"
+      required: true
+      type: "service"
+    - variable: "LOGSTASH_ES_HOSTS_3"
+      description: |
+        Choose the Elasticsearch service to use. 
+        It's really recommended a dedicated Elasticsearch service just for Logstash.
+      label: "LOGSTASH_ES_HOSTS_3 stack/service"
+      default: "elasticsearch/es-client"
+      required: true
+      type: "service"
 
 logstash:
   scale: ${logstash_scale}
