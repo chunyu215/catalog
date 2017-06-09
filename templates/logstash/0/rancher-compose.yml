@@ -85,6 +85,14 @@
       default: "elasticsearch/es-client"
       required: true
       type: "service"
+    - variable: "LOGSTASH_INFLUXDB_HOST"
+      description: |
+        Choose the Influxdb service to use. 
+        It's really recommended a dedicated Influxdb service just for Logstash.
+      label: "LOGSTASH_INFLUXDB_HOST stack/service"
+      default: "influxdb/influxdb"
+      required: true
+      type: "service"
 
 logstash:
   scale: ${logstash_scale}
