@@ -42,6 +42,9 @@ es-client:
 
 es-data:
   scale: ${initial_data_nodes}
+  
+es-mana:
+  scale: 1
 
 
 
