@@ -51,6 +51,8 @@ es-data:
   - ${elastic_search_base_dir}/data/logs:/opt/elasticsearch/logs
   environment:
     ES_OPTS: -Des.insecure.allow.root=true
+  links:
+   - es-master:es-master-svc
   labels:
     io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     io.rancher.container.hostname_override: es-master-1
