@@ -27,6 +27,12 @@
       required: true
       default: "9200"
       type: "string"
+    - variable: "expose_mana_port"
+      description: "admin port to export, default 9200."
+      label: "elasticsearch expose admin port"
+      required: true
+      default: "9200"
+      type: "string"
     - variable: "elastic_search_base_dir"
       description: "elastic search base dir on host, default /opt/iosa_deploy/elasticsearch"
       label: "elastic search base dir on host"
